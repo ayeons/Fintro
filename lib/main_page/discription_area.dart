@@ -57,7 +57,7 @@ class _DiscriptionTextState extends State<DiscriptionText>
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    fontSize = (size.width * 0.018)+2;
+    fontSize = (size.width * 0.015) + 5;
     var gs = GlobalS.of(context);
     return Visibility(
       maintainState: true,
@@ -69,7 +69,8 @@ class _DiscriptionTextState extends State<DiscriptionText>
           child: Container(
               height: widget.isv ? size.height * 0.4 : size.height * 0.8,
               margin: EdgeInsets.symmetric(horizontal: 30),
-              padding: EdgeInsets.only(left:50,right:50,bottom:50,top:30),
+              padding:
+                  EdgeInsets.only(left: 50, right: 50, bottom: 50, top: 30),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.elliptical(200, 100)),
                   color: Color(0xFCFFFFFF),
@@ -85,39 +86,55 @@ class _DiscriptionTextState extends State<DiscriptionText>
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom:20),
+                        padding: EdgeInsets.only(
+                            bottom: widget.isv ? 10 : 30,
+                            top: widget.isv ? 0 : 15),
                         child: Center(
-                            child: InkWell(
-                          onHover: (value) {
-                            setState(() {
-                              deco = value ? TextDecoration.underline : null;
-                            });
-                          },
-                          onTap: () {
-                            window.location.href = widget.link;
-                          },
-                          child: Text(widget.sub,
-                              style: TextStyle(
-                                letterSpacing: 1,
-                                  decoration: deco,
-                                  decorationStyle: TextDecorationStyle.wavy,
-                                  decorationColor: Colors.black38,
-                                  decorationThickness: 3,
-                                  fontSize: fontSize * 1.5,
-                                  color: subTextColor,
-                                  fontWeight: FontWeight.bold,
-                                  shadows: [
-                                    Shadow(offset: Offset(1, 1), blurRadius: 1)
-                                  ])),
+                            child: Material(
+                          child: InkWell(
+                            onHover: (value) {
+                              setState(() {
+                                deco = value ? TextDecoration.underline : null;
+                              });
+                            },
+                            onTap: () {
+                              if (widget.link != '') {
+                                window.location.href = widget.link;
+                              }
+                            },
+                            child: Text(widget.sub,
+                                style: TextStyle(
+                                    letterSpacing: 1,
+                                    decoration: deco,
+                                    decorationStyle: TextDecorationStyle.wavy,
+                                    decorationColor: Color(0xFFFFFFFF),
+                                    decorationThickness: 3,
+                                    fontSize: fontSize * 1.5,
+                                    color: subTextColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic,
+                                    shadows: [
+                                      widget.isv
+                                          ? Shadow(
+                                              offset: Offset(2, 2),
+                                              blurRadius: 2)
+                                          : Shadow(
+                                              offset: Offset(4, 4),
+                                              blurRadius: 4)
+                                    ])),
+                          ),
                         )),
                       ),
-                      Center(
-                        child: Text(
-                          widget.text,
-                          style: TextStyle(
-                            letterSpacing: 1,
-                              fontSize: fontSize,
-                              fontStyle: FontStyle.italic),
+                      Padding(
+                        padding: EdgeInsets.all(widget.isv ? 0 : 30),
+                        child: Center(
+                          child: Text(
+                            widget.text,
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: fontSize,
+                                fontStyle: FontStyle.italic),
+                          ),
                         ),
                       ),
                     ],

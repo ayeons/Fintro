@@ -47,7 +47,7 @@ class LogoPainter extends CustomPainter {
   Color penColor;
   
   List<double> pathList;
-  LogoPainter({@required Logo logo,this.penColor=const Color(0xF0605040)}){
+  LogoPainter({@required Logo logo,this.penColor=const Color(0xF0706050)}){
     switch (logo.index) {
       case 0:
         pathList = [37, 77, 85, 3, 40, 71, 2.5, 60, 48, 84];

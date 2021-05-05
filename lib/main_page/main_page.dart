@@ -99,7 +99,7 @@ class _MainPageState extends State<MainPage> {
                           ),
                           Padding(
                               padding: EdgeInsets.all(30),
-                              child: Text("Langle",
+                              child: Text("LANGLE",
                                   style: TextStyle(
                                       fontSize: 25, color: Colors.blue))),
                           Padding(
@@ -260,7 +260,7 @@ class HVRatiodiscriptionArea extends StatelessWidget {
   Widget build(BuildContext context) {
     int activeNum = GlobalS.of(context).activeNum;
     return activeNum == 0
-        ? DiscriptionText(isv, 'Langle', langleText,
+        ? DiscriptionText(isv, 'LANGLE', langleText,
             'https://play.google.com/store/apps/details?id=com.ayeons.favorite_word')
         : activeNum == 1
             ? DiscriptionText(isv, 'Mari', mariText, '')
@@ -279,6 +279,7 @@ class LeftBar extends StatefulWidget {
 class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
   AnimationController _controller;
   Animation _anim;
+  Animation _canim;
   AnimationController xcontroller;
   AnimationController ycontroller;
   AnimationController _ocontroller;
@@ -320,8 +321,8 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
     _controller.addListener(() {
       setState(() {});
     });
-    _anim = Tween<double>(begin: 0, end: 40).animate(_controller);
-
+    _anim = _controller.drive(CurveTween(curve: Curves.decelerate)).drive(Tween(begin: 0,end:40));
+    
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {}
     });
@@ -418,12 +419,12 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                         onPressed: () {
                           controllerGo(0);
                         },
-                        child: Text("Langle",
+                        child: Text("LANGLE",
                             style: TextStyle(
                                 fontSize: 25,
                                 color: GlobalS.of(context).activeNum == 0
                                     ? Colors.blueAccent.shade200
-                                    : Colors.black45))),
+                                    : Colors.brown.shade600))),
                   ),
                 ),
               ),
