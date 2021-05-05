@@ -9,7 +9,9 @@ class ImageArea extends StatefulWidget {
   final String path;
   final String link;
   final bool isVideo;
-  ImageArea(this.path, this.link, this.isVideo) : super(key: ValueKey(path));
+  
+  ImageArea(this.path, this.link, this.isVideo,)
+      : super(key: ValueKey(path));
   @override
   _ImageAreaState createState() => _ImageAreaState();
 }
@@ -27,7 +29,9 @@ class _ImageAreaState extends State<ImageArea>
     )..addListener(() {
         setState(() {});
       });
-    imageAni = CurveTween(curve: widget.isVideo?Curves.easeInOutExpo:Curves.bounceOut).animate(imageController);
+    imageAni = CurveTween(
+            curve: widget.isVideo ? Curves.easeInOutExpo : Curves.bounceOut)
+        .animate(imageController);
 
     if (widget.isVideo) {
       _videoController = VideoPlayerController.asset(widget.path)
@@ -62,9 +66,9 @@ class _ImageAreaState extends State<ImageArea>
   @override
   Widget build(BuildContext context) {
     var gs = GlobalS.of(context);
-
+    
     var mq = MediaQuery.of(context);
-
+    
     return Column(
       children: [
         Visibility(
@@ -76,10 +80,10 @@ class _ImageAreaState extends State<ImageArea>
                   children: [
                     Container(
                       width: imageAni.value *
-                          mq.size.height /
-                          2 *
-                          _videoController.value.aspectRatio,
-                      height: mq.size.height / 2,
+                          (mq.size.width-200 )*
+                          0.5
+                          ,
+                      height: (mq.size.width * 0.4)/_videoController.value.aspectRatio,
                       child:
                           Stack(alignment: Alignment.bottomCenter, children: [
                         VideoPlayer(_videoController),
@@ -94,8 +98,8 @@ class _ImageAreaState extends State<ImageArea>
                   ],
                 )
               : Container(
-                  width: imageAni.value * 600,
-                  height: imageAni.value * (mq.size.height / 2),
+                  width: imageAni.value * mq.size.width * 0.4,
+                  height: imageAni.value * mq.size.height * 0.4,
                   child: InkWell(
                     onTap: () {
                       window.location.href = widget.link;
@@ -238,21 +242,29 @@ class _PlayerVideoAndPopPageState extends State<PlayerVideoAndPopPage> {
                 ),
               ]);
             } else {
-              return Stack(children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FloatingActionButton(
-                        backgroundColor: Colors.orangeAccent,
-                        child: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
+              return Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FloatingActionButton(
+                          backgroundColor: Colors.orangeAccent,
+                          child: Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ),
                   ),
-                ),
-                Padding(padding: EdgeInsets.all(20),child:Center(child: Text("waiting for video to load",textScaleFactor: 2,)))
-              ],);
+                  Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                          child: Text(
+                        "waiting for video to load",
+                        textScaleFactor: 2,
+                      )))
+                ],
+              );
             }
           },
         ),

@@ -20,7 +20,7 @@ class _DiscriptionTextState extends State<DiscriptionText>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _anim;
-  double fontSize;
+  
   TextDecoration deco;
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _DiscriptionTextState extends State<DiscriptionText>
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    fontSize = (size.width * 0.015) + 5;
+    double fontScale = (size.width * 0.0005) + 1;
     var gs = GlobalS.of(context);
     return Visibility(
       maintainState: true,
@@ -103,13 +103,14 @@ class _DiscriptionTextState extends State<DiscriptionText>
                               }
                             },
                             child: Text(widget.sub,
+                            textScaleFactor: fontScale*1.5,
                                 style: TextStyle(
                                     letterSpacing: 1,
                                     decoration: deco,
                                     decorationStyle: TextDecorationStyle.wavy,
                                     decorationColor: Color(0xFFFFFFFF),
                                     decorationThickness: 3,
-                                    fontSize: fontSize * 1.5,
+                                    
                                     color: subTextColor,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.italic,
@@ -119,8 +120,8 @@ class _DiscriptionTextState extends State<DiscriptionText>
                                               offset: Offset(2, 2),
                                               blurRadius: 2)
                                           : Shadow(
-                                              offset: Offset(4, 4),
-                                              blurRadius: 4)
+                                              offset: Offset(3, 3),
+                                              blurRadius: 3)
                                     ])),
                           ),
                         )),
@@ -130,9 +131,10 @@ class _DiscriptionTextState extends State<DiscriptionText>
                         child: Center(
                           child: Text(
                             widget.text,
+                            textScaleFactor: fontScale,
                             style: TextStyle(
                                 letterSpacing: 1,
-                                fontSize: fontSize,
+                                
                                 fontStyle: FontStyle.italic),
                           ),
                         ),

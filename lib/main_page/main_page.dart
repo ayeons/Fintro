@@ -8,7 +8,6 @@ import 'discription_area.dart';
 import 'image_area.dart';
 import 'used_area.dart';
 
-const Color mainColor = Color(0xA0F06010);
 
 class MainPage extends StatefulWidget {
   @override
@@ -41,7 +40,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context);
-    if (mq.size.width < 800 || mq.size.height < 650) {
+    if (mq.size.width < 700) {
       minwidth = true;
     } else {
       minwidth = false;
@@ -68,7 +67,8 @@ class _MainPageState extends State<MainPage> {
                     padding: EdgeInsets.all(8),
                     child: Text(
                       "BACK",
-                      style: TextStyle(color: Colors.black, fontSize: 30),
+                      textScaleFactor: 1.5,
+                      style: TextStyle(color: Colors.black54),
                     )),
               ],
             ),
@@ -78,62 +78,65 @@ class _MainPageState extends State<MainPage> {
         body: minwidth
             ? Stack(
                 children: [
-                  SingleChildScrollView(
-                    child: Container(
-                        width: 300,
-                        height: 3000,
-                        color: mainColor,
-                        child: Column(children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 50),
-                            child: Text("FlutterWeb",
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.italic)),
-                          ),
-                          Divider(
-                            indent: 100,
-                            endIndent: 100,
-                            thickness: 5,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.all(30),
-                              child: Text("LANGLE",
-                                  style: TextStyle(
-                                      fontSize: 25, color: Colors.blue))),
-                          Padding(
-                              padding: EdgeInsets.all(30),
-                              child: Text("Mari",
-                                  style: TextStyle(
-                                      fontSize: 25, color: Colors.black45))),
-                          Padding(
-                              padding: EdgeInsets.all(30),
-                              child: Text("YOLO_Mark",
-                                  style: TextStyle(
-                                      fontSize: 25, color: Colors.black45))),
-                          Divider(
-                            indent: 100,
-                            endIndent: 100,
-                            thickness: 5,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.all(30),
-                              child: Text("Used",
-                                  style: TextStyle(
-                                      fontSize: 25, color: Colors.black45))),
-                          RepaintBoundary(
-                            child: SizedBox(
-                              width: 300,
-                              child: Padding(
-                                padding: EdgeInsets.all(50),
-                                child: CustomPaint(
-                                  painter: LogoPainter(logo: Logo.Round),
-                                ),
+                  Container(
+                    width: (mq.size.width * 0.1) + 100,
+                    height: mq.size.height,
+                    color: leftBarColor,
+                    child: SingleChildScrollView(
+                      child: Column(children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: mq.size.width * 0.015,
+                              vertical: mq.size.height * 0.05),
+                          child: Text("FlutterWeb",
+                              textScaleFactor: (mq.size.width * 0.001) + 1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic)),
+                        ),
+                        Divider(
+                          indent: (mq.size.width * 0.04) + 30,
+                          endIndent: (mq.size.width * 0.04) + 30,
+                          thickness: 5,
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(mq.size.height * 0.03),
+                            child: Text("LANGLE",
+                                textScaleFactor: (mq.size.width * 0.0007) + 1,
+                                style: TextStyle(color: Colors.blue))),
+                        Padding(
+                            padding: EdgeInsets.all(mq.size.height * 0.03),
+                            child: Text("Mari",
+                                textScaleFactor: (mq.size.width * 0.0007) + 1,
+                                style: TextStyle(color: Colors.black45))),
+                        Padding(
+                            padding: EdgeInsets.all(mq.size.height * 0.03),
+                            child: Text("YOLO_Mark",
+                                textScaleFactor: (mq.size.width * 0.0007) + 1,
+                                style: TextStyle(color: Colors.black45))),
+                        Divider(
+                          indent: (mq.size.width * 0.04) + 30,
+                          endIndent: (mq.size.width * 0.04) + 30,
+                          thickness: 5,
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(mq.size.height * 0.03),
+                            child: Text("Used",
+                                textScaleFactor: (mq.size.width * 0.0007) + 1,
+                                style: TextStyle(color: Colors.black45))),
+                        RepaintBoundary(
+                          child: SizedBox(
+                            child: Padding(
+                              padding: EdgeInsets.all(mq.size.height * 0.05),
+                              child: CustomPaint(
+                                painter: LogoPainter(
+                                    logo: Logo.Round, msize: mq.size),
                               ),
                             ),
                           ),
-                        ])),
+                        ),
+                      ]),
+                    ),
                   ),
                   Center(
                       child: Text("this page for PC. scale up!",
@@ -200,7 +203,7 @@ class _MainBodyState extends State<MainBody> {
           Flexible(
             child: _activeNum == 3
                 ? UsedArea()
-                : MediaQuery.of(context).size.width > 1300
+                : MediaQuery.of(context).size.width > 1200
                     ? SingleChildScrollView(
                         child: Row(
                           children: [
@@ -237,7 +240,7 @@ class HVRatioImageArea extends StatelessWidget {
   Widget build(BuildContext context) {
     int activeNum = GlobalS.of(context).activeNum;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:30.0,vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
       child: activeNum == 0
           ? ImageArea(
               "images/book-splash.png",
@@ -279,7 +282,7 @@ class LeftBar extends StatefulWidget {
 class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
   AnimationController _controller;
   Animation _anim;
-  Animation _canim;
+
   AnimationController xcontroller;
   AnimationController ycontroller;
   AnimationController _ocontroller;
@@ -290,7 +293,7 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
       duration: Duration(milliseconds: 500),
       vsync: this,
       upperBound: 4,
-      lowerBound: -5.5,
+      lowerBound: -5,
     );
     ycontroller = AnimationController(
         duration: Duration(milliseconds: 500),
@@ -321,8 +324,10 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
     _controller.addListener(() {
       setState(() {});
     });
-    _anim = _controller.drive(CurveTween(curve: Curves.decelerate)).drive(Tween(begin: 0,end:40));
-    
+    _anim = _controller
+        .drive(CurveTween(curve: Curves.decelerate))
+        .drive(Tween(begin: 0, end: 40));
+
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {}
     });
@@ -359,51 +364,60 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
     var mq = MediaQuery.of(context);
+
     return Opacity(
       opacity: _oanim.value,
-      child: SingleChildScrollView(
-        child: Container(
-          width: 300,
-          height: MediaQuery.of(context).size.height,
-          color: mainColor,
+      child: Container(
+        width: (mq.size.width * 0.1) + 100,
+        height: mq.size.height,
+        color: leftBarColor,
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              RepaintBoundary(
-                child: GlobalS.of(context).isStart
-                    ? CustomPaint(painter: LogoPainter(logo: Logo.Edge,penColor: Color(0xF0504030)))
-                    : Transform(
-                        transform: Matrix4.translationValues(
-                            xcontroller.value * 100 + 350,
-                            ycontroller.value * 0.1 * mq.size.height +
-                                (mq.size.height * 0.5),
-                            0),
-                        child: Container(
-                          margin: EdgeInsets.only(left: 350),
-                          child: CustomPaint(
-                            painter: LogoPainter(logo: Logo.Edge),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: mq.size.width * 0.015,
+                    vertical: mq.size.height * 0.12),
+                child: Stack(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        window.location.reload();
+                      },
+                      child: Text("FlutterWeb",
+                          textScaleFactor: (mq.size.width * 0.001) + 1,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic)),
+                    ),
+                    Align(alignment: Alignment.topCenter,
+                        child: Transform(
+                                                  transform: Matrix4.translationValues(mq.size.width*0.005, mq.size.height*-0.05, 0),
+                                                  child: RepaintBoundary(
+                            child: GlobalS.of(context).isStart
+                                ? CustomPaint(
+                                    painter: LogoPainter(
+                                        logo: Logo.Edge,
+                                        penColor: Color(0xF0504030),
+                                        msize: mq.size))
+                                : Transform(
+                                    transform: Matrix4.translationValues(
+                                        xcontroller.value * 0.1 * mq.size.width +
+                    (mq.size.width * 0.5),
+                                        ycontroller.value * 0.1 * mq.size.height +
+                    (mq.size.height * 0.5),
+                                        0),
+                                    child: CustomPaint(
+                                      painter: LogoPainter(
+                                          logo: Logo.Edge, msize: mq.size),
+                                    ),
+                                  ),
                           ),
                         ),
                       ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 50),
-                child: InkWell(
-                  onTap: () {
-                    window.location.reload();
-                  },
-                  child: Text("FlutterWeb",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic)),
+                  ],
                 ),
-              ),
-              Divider(
-                indent: 100,
-                endIndent: 100,
-                thickness: 5,
               ),
               RepaintBoundary(
                 child: CustomPaint(
@@ -411,7 +425,9 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                       ? ActivePainter(_anim.value)
                       : null,
                   child: Padding(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.width * 0.015,
+                        vertical: mq.size.height * 0.03),
                     child: TextButton(
                         style: ButtonStyle(
                             overlayColor:
@@ -420,8 +436,8 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                           controllerGo(0);
                         },
                         child: Text("LANGLE",
+                            textScaleFactor: (mq.size.width * 0.0005) + 1,
                             style: TextStyle(
-                                fontSize: 25,
                                 color: GlobalS.of(context).activeNum == 0
                                     ? Colors.blueAccent.shade200
                                     : Colors.brown.shade600))),
@@ -434,7 +450,9 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                       ? ActivePainter(_anim.value)
                       : null,
                   child: Padding(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.width * 0.015,
+                        vertical: mq.size.height * 0.03),
                     child: TextButton(
                         style: ButtonStyle(
                             overlayColor:
@@ -443,8 +461,8 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                           controllerGo(1);
                         },
                         child: Text("Mari",
+                            textScaleFactor: (mq.size.width * 0.0005) + 1,
                             style: TextStyle(
-                                fontSize: 25,
                                 color: GlobalS.of(context).activeNum == 1
                                     ? Colors.blueAccent.shade200
                                     : Colors.black45))),
@@ -457,7 +475,9 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                       ? ActivePainter(_anim.value)
                       : null,
                   child: Padding(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.width * 0.015,
+                        vertical: mq.size.height * 0.03),
                     child: TextButton(
                         style: ButtonStyle(
                             overlayColor:
@@ -466,8 +486,8 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                           controllerGo(2);
                         },
                         child: Text("YOLO_Mark",
+                            textScaleFactor: (mq.size.width * 0.0005) + 1,
                             style: TextStyle(
-                                fontSize: 25,
                                 color: GlobalS.of(context).activeNum == 2
                                     ? Colors.blueAccent.shade200
                                     : Colors.black45))),
@@ -475,8 +495,8 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                 ),
               ),
               Divider(
-                indent: 100,
-                endIndent: 100,
+                indent: (mq.size.width * 0.04) + 30,
+                endIndent: (mq.size.width * 0.04) + 30,
                 thickness: 5,
               ),
               RepaintBoundary(
@@ -485,7 +505,9 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                       ? ActivePainter(_anim.value)
                       : null,
                   child: Padding(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.width * 0.015,
+                        vertical: mq.size.height * 0.03),
                     child: TextButton(
                         style: ButtonStyle(
                             overlayColor:
@@ -494,8 +516,8 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                           controllerGo(3);
                         },
                         child: Text("Used",
+                            textScaleFactor: (mq.size.width * 0.0005) + 1,
                             style: TextStyle(
-                                fontSize: 25,
                                 color: GlobalS.of(context).activeNum == 3
                                     ? Colors.blueAccent.shade200
                                     : Colors.black45))),
@@ -506,9 +528,11 @@ class _LeftBarState extends State<LeftBar> with TickerProviderStateMixin {
                 child: SizedBox(
                   width: 300,
                   child: Padding(
-                    padding: EdgeInsets.all(50),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.width * 0.015,
+                        vertical: mq.size.height * 0.05),
                     child: CustomPaint(
-                      painter: LogoPainter(logo: Logo.Round),
+                      painter: LogoPainter(logo: Logo.Round, msize: mq.size),
                     ),
                   ),
                 ),

@@ -45,9 +45,9 @@ enum Logo { Edge, Round }
 
 class LogoPainter extends CustomPainter {
   Color penColor;
-  
+  Size msize;
   List<double> pathList;
-  LogoPainter({@required Logo logo,this.penColor=const Color(0xF0706050)}){
+  LogoPainter({@required Logo logo,this.penColor=const Color(0xF0706050),@required this.msize}){
     switch (logo.index) {
       case 0:
         pathList = [37, 77, 85, 3, 40, 71, 2.5, 60, 48, 84];
@@ -60,17 +60,18 @@ class LogoPainter extends CustomPainter {
   }
   @override
   void paint(Canvas canvas, Size size) {
+    
     Paint pen = Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = 3
       ..color = penColor;
     Path path = Path();
     path
-      ..lineTo(pathList[0], pathList[1])
-      ..lineTo(pathList[2], pathList[3])
-      ..lineTo(pathList[4], pathList[5])
-      ..lineTo(pathList[6], pathList[7])
-      ..lineTo(pathList[8], pathList[9])
+      ..lineTo(pathList[0]*msize.width*0.0005, pathList[1]*msize.width*0.0005)
+      ..lineTo(pathList[2]*msize.width*0.0005, pathList[3]*msize.width*0.0005)
+      ..lineTo(pathList[4]*msize.width*0.0005, pathList[5]*msize.width*0.0005)
+      ..lineTo(pathList[6]*msize.width*0.0005, pathList[7]*msize.width*0.0005)
+      ..lineTo(pathList[8]*msize.width*0.0005, pathList[9]*msize.width*0.0005)
       ..close();
     canvas.drawPath(path, pen);
   }
@@ -132,12 +133,12 @@ class IntroSimul extends Simulation {
   double i = 0;
 
   double msin(num r) {
-    return sin(r) * 4;
+    return sin(r) * 3;
   }
 
   double afterDone(num s) {
     var ss = SpringSimulation(
-        SpringDescription(mass: 30, damping: 1, stiffness: 1), 0, -5.5, 0.05);
+        SpringDescription(mass: 30, damping: 1, stiffness: 1), 0, -5, 0.05);
     return ss.x(i += 0.01);
   }
 

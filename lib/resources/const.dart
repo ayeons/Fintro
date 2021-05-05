@@ -10,4 +10,6 @@ const String usedLanguage='Dart , Python , Java , C';
 const String usedFramework='Flutter , Spring';
 const String usedEtc='TensorFlow , FireBase';
 
-const Color subTextColor=Color(0xFFF06010);
+const Color subTextColor2=Color(0xFFF06010);
+const Color leftBarColor=Color(0x5050A050);
+const Color subTextColor=Color(0xFF80C080);
